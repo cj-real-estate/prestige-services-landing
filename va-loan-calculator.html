@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VA Loan Calculator | VA Home Team OKC</title>
+<style>
+  :root {
+    --navy: #0a1f44;
+    --navy-deep: #061633;
+    --blue: #1a73ff;
+    --blue-link: #1a73ff;
+    --yellow: #f6c544;
+    --yellow-hover: #efb928;
+    --bg: #ffffff;
+    --card: #f5f5f5;
+    --card-border: #e5e5e5;
+    --text: #0a1f44;
+    --muted: #6b6b6b;
+    --track: #061633;
+    --red: #c8202f;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  header.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    gap: 24px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-mark {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-mark svg { width: 100%; height: 100%; }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-text .top {
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--navy);
+    letter-spacing: 0.3px;
+  }
+  .logo-text .bottom {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .logo-text .bottom strong { color: var(--navy); font-weight: 700; }
+
+  nav.primary {
+    display: flex;
+    gap: 36px;
+    flex: 1;
+    justify-content: center;
+  }
+  nav.primary a {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  nav.primary a:hover { color: var(--blue); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .phone {
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+
+  /* Title */
+  .title-block {
+    text-align: center;
+    padding: 24px 24px 8px;
+  }
+  .title-block h1 {
+    font-size: 56px;
+    color: var(--navy);
+    margin: 0 0 16px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .title-block p {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: var(--text);
+  }
+
+  /* Layout */
+  .calculator-wrap {
+    max-width: 1180px;
+    margin: 32px auto 80px;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* Calculator card */
+  .calc-card {
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .calc-header {
+    background: var(--navy-deep);
+    color: #fff;
+    padding: 18px 28px;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .calc-body {
+    padding: 26px 28px 8px;
+  }
+
+  .field { margin-bottom: 24px; }
+  .field-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 16px;
+  }
+  .field-label {
+    font-weight: 800;
+    color: var(--navy);
+    font-size: 18px;
+  }
+  .input-box {
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 16px;
+    color: var(--navy);
+    font-weight: 600;
+    width: 160px;
+    text-align: left;
+    outline: none;
+  }
+  .input-box:focus { border-color: var(--blue); }
+
+  .input-pair {
+    display: flex;
+    gap: 8px;
+  }
+  .input-pair .input-box {
+    width: 110px;
+  }
+
+  /* Custom sliders */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--track);
+    outline: none;
+    cursor: pointer;
+  }
+  .slider::-webkit-slider-runnable-track {
+    height: 12px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--blue) 0%, var(--blue) var(--pct, 0%), var(--track) var(--pct, 0%), var(--track) 100%);
+  }
+  .slider::-moz-range-track {
+    height: 12px;
+    border-radius: 999px;
+    background: var(--track);
+  }
+  .slider::-moz-range-progress {
+    height: 12px;
+    border-radius: 999px;
+    background: var(--blue);
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+    margin-top: -7px;
+  }
+  .slider::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+  }
+
+  /* Two-column row (interest + term) */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 10px;
+  }
+  .two-col .field-label { margin-bottom: 10px; display: block; }
+
+  .term-toggle {
+    display: flex;
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+  }
+  .term-toggle button {
+    border: 0;
+    background: transparent;
+    padding: 10px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #9aa0a6;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .term-toggle button.active {
+    background: #e3e6ea;
+    color: var(--navy);
+  }
+
+  .rate-note {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .rate-note a {
+    color: var(--blue-link);
+    text-decoration: underline;
+    font-weight: 600;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* VA Specifics */
+  .va-specifics-title {
+    font-weight: 800;
+    color: var(--navy);
+    font-size: 18px;
+    margin: 14px 0 12px;
+  }
+  .checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .check-card {
+    background: #fff;
+    border: 1.5px solid var(--blue);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 15px;
+    transition: background 0.15s;
+  }
+  .check-card:hover { background: #f7f9ff; }
+  .check-card input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--navy);
+    border-radius: 4px;
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .check-card input:checked { background: var(--navy); border-color: var(--navy); }
+  .check-card input:checked::after {
+    content: "";
+    width: 6px;
+    height: 11px;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+  }
+
+  /* Advanced */
+  .advanced-toggle {
+    text-align: center;
+    margin: 22px 0 10px;
+    cursor: pointer;
+    color: var(--blue-link);
+    font-weight: 800;
+    font-size: 18px;
+    user-select: none;
+  }
+  .advanced-toggle .arrow { display: inline-block; transition: transform 0.2s; margin-left: 4px; }
+  .advanced-toggle.open .arrow { transform: rotate(180deg); }
+
+  .advanced-panel {
+    display: none;
+    border-top: 1px solid var(--card-border);
+    padding: 22px 28px 26px;
+    background: var(--card);
+  }
+  .advanced-panel.open { display: block; }
+
+  .adv-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 14px;
+  }
+  .adv-field-label {
+    font-weight: 800;
+    color: var(--navy);
+    font-size: 17px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .adv-input-pair {
+    display: flex;
+    gap: 8px;
+  }
+  .adv-input-pair .input-box { width: 50%; }
+  .help-text {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.45;
+  }
+
+  /* Results card */
+  .results-card {
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 36px 32px 32px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    position: sticky;
+    top: 24px;
+  }
+  .results-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .results-amount {
+    text-align: center;
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--navy);
+    margin: 12px 0 24px;
+    letter-spacing: -1px;
+  }
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--yellow);
+    color: var(--navy);
+    border: 0;
+    border-radius: 10px;
+    padding: 16px 24px;
+    font-size: 20px;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.15s;
+  }
+  .cta-btn:hover { background: var(--yellow-hover); }
+  .cta-btn svg { transition: transform 0.15s; }
+  .cta-btn:hover svg { transform: translateX(2px); }
+
+  .loan-totals {
+    margin-top: 32px;
+  }
+  .loan-totals h3 {
+    color: var(--navy);
+    font-weight: 800;
+    font-size: 22px;
+    margin: 0 0 16px;
+  }
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 17px;
+  }
+  .total-row .val { font-weight: 800; }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    nav.primary { display: none; }
+    .calculator-wrap { grid-template-columns: 1fr; }
+    .title-block h1 { font-size: 40px; }
+    .results-card { position: static; }
+  }
+  @media (max-width: 560px) {
+    header.site-header { padding: 14px 18px; }
+    .calc-body, .advanced-panel { padding-left: 18px; padding-right: 18px; }
+    .two-col, .adv-row, .checks { grid-template-columns: 1fr; }
+    .results-amount { font-size: 56px; }
+    .title-block h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">
+    <div class="logo-mark">
+      <!-- House + flag stylized logo -->
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <clipPath id="house">
+            <path d="M32 6 L58 26 L58 56 L6 56 L6 26 Z"/>
+          </clipPath>
+        </defs>
+        <path d="M32 6 L58 26 L58 56 L6 56 L6 26 Z" fill="#fff" stroke="#0a1f44" stroke-width="3"/>
+        <g clip-path="url(#house)">
+          <rect x="6" y="22" width="52" height="8" fill="#0a1f44"/>
+          <rect x="6" y="38" width="52" height="6" fill="#c8202f"/>
+          <rect x="6" y="50" width="52" height="6" fill="#c8202f"/>
+          <rect x="6" y="22" width="22" height="14" fill="#0a1f44"/>
+          <g fill="#fff">
+            <circle cx="11" cy="26" r="1"/>
+            <circle cx="16" cy="26" r="1"/>
+            <circle cx="21" cy="26" r="1"/>
+            <circle cx="13.5" cy="30" r="1"/>
+            <circle cx="18.5" cy="30" r="1"/>
+            <circle cx="11" cy="34" r="1"/>
+            <circle cx="16" cy="34" r="1"/>
+            <circle cx="21" cy="34" r="1"/>
+          </g>
+        </g>
+        <path d="M32 6 L58 26 L58 56 L6 56 L6 26 Z" fill="none" stroke="#0a1f44" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="top">VA HOME TEAM OKC</span>
+      <span class="bottom">Powered by: <strong>ATRIUM REALTY</strong></span>
+    </div>
+  </div>
+
+  <nav class="primary">
+    <a href="#team">Our Team</a>
+    <a href="#start">Get Started</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="header-right">
+    <a class="phone" href="tel:4053424219">405-342-4219</a>
+    <div class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<section class="title-block">
+  <h1>VA Loan Calculator</h1>
+  <p>Use this VA home loan calculator to estimate your monthly mortgage payments with the VA Funding Fee, taxes, insurance and HOA fees.</p>
+</section>
+
+<section class="calculator-wrap">
+  <!-- LEFT: Calculator inputs -->
+  <div class="calc-card">
+    <div class="calc-header">Calculate your VA loan payment below:</div>
+    <div class="calc-body">
+
+      <!-- Home Price -->
+      <div class="field">
+        <div class="field-row">
+          <span class="field-label">Home Price</span>
+          <input type="text" class="input-box" id="homePriceText" value="$250,000" inputmode="numeric" />
+        </div>
+        <input type="range" class="slider" id="homePrice" min="50000" max="2000000" step="1000" value="250000" />
+      </div>
+
+      <!-- Down Payment -->
+      <div class="field">
+        <div class="field-row">
+          <span class="field-label">Down Payment</span>
+          <div class="input-pair">
+            <input type="text" class="input-box" id="downAmtText" value="$0" inputmode="numeric" />
+            <input type="text" class="input-box" id="downPctText" value="0%" inputmode="decimal" />
+          </div>
+        </div>
+        <input type="range" class="slider" id="downPayment" min="0" max="100" step="0.1" value="0" />
+      </div>
+
+      <!-- Interest + Term -->
+      <div class="two-col">
+        <div>
+          <span class="field-label">Interest Rate</span>
+          <input type="text" class="input-box" id="rateText" value="5.75 %" inputmode="decimal" style="margin-top:10px;" />
+          <div class="rate-note">
+            For illustration only, actual rate may vary.
+            <a href="#rate">Get Your Exact Rate &gt;</a>
+          </div>
+        </div>
+        <div>
+          <span class="field-label">Loan Term:</span>
+          <div class="term-toggle" id="termToggle">
+            <button data-term="30">30 Years</button>
+            <button data-term="15" class="active">15 Years</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VA Specifics -->
+      <div class="va-specifics-title">VA Specifics:</div>
+      <div class="checks">
+        <label class="check-card">
+          <input type="checkbox" id="disabled" />
+          I am VA Disabled 10% or more
+        </label>
+        <label class="check-card">
+          <input type="checkbox" id="subsequentUse" />
+          I have used a VA Loan before
+        </label>
+      </div>
+
+      <!-- Advanced toggle -->
+      <div class="advanced-toggle" id="advToggle">
+        Advanced Settings <span class="arrow">▼</span>
+      </div>
+    </div>
+
+    <!-- Advanced settings panel -->
+    <div class="advanced-panel" id="advPanel">
+      <div class="adv-row">
+        <div>
+          <span class="adv-field-label">Annual Property Tax:</span>
+          <div class="adv-input-pair">
+            <input type="text" class="input-box" id="taxAmtText" placeholder="$0" />
+            <input type="text" class="input-box" id="taxPctText" value="1.12%" />
+          </div>
+          <div class="help-text">Property taxes are generally estimated to be 1.12% of the home's value, but may vary based on your location.</div>
+        </div>
+        <div>
+          <span class="adv-field-label">Annual HOA Fees:</span>
+          <input type="text" class="input-box" id="hoaText" placeholder="$0" style="width:100%;" />
+        </div>
+      </div>
+      <div class="adv-row">
+        <div>
+          <span class="adv-field-label">Home Owners Insurance:</span>
+          <input type="text" class="input-box" id="insText" value="0.35%" style="width:100%;" />
+          <div class="help-text">Annual homeowners insurance is typically 0.35% of the home's value but can vary based on insurer.</div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Results -->
+  <aside class="results-card">
+    <div class="results-title">Estimated<br/>Monthly Payment:</div>
+    <div class="results-amount" id="monthlyOut">$1,797</div>
+    <button class="cta-btn">
+      Check Your VA Eligibility
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+
+    <div class="loan-totals">
+      <h3>Loan Totals:</h3>
+      <div class="total-row"><span>Purchase Price</span><span class="val" id="outPrice">$250,000</span></div>
+      <div class="total-row"><span>Down Payment</span><span class="val" id="outDown">$0</span></div>
+      <div class="total-row"><span>VA Funding Fee</span><span class="val" id="outFee">$5,375</span></div>
+      <div class="total-row"><span>Total Loan Amount</span><span class="val" id="outTotal">$255,375</span></div>
+    </div>
+  </aside>
+</section>
+
+<script>
+(function () {
+  // ---- Elements
+  const $ = (id) => document.getElementById(id);
+  const homePrice = $("homePrice");
+  const homePriceText = $("homePriceText");
+  const downPayment = $("downPayment");      // stored as percent 0..100
+  const downAmtText = $("downAmtText");
+  const downPctText = $("downPctText");
+  const rateText = $("rateText");
+  const disabled = $("disabled");
+  const subsequentUse = $("subsequentUse");
+  const taxAmtText = $("taxAmtText");
+  const taxPctText = $("taxPctText");
+  const hoaText = $("hoaText");
+  const insText = $("insText");
+  const advToggle = $("advToggle");
+  const advPanel = $("advPanel");
+  const termToggle = $("termToggle");
+
+  let term = 15; // matches screenshot active state
+
+  // ---- Formatters
+  const fmt$ = (n) => "$" + Math.round(n).toLocaleString("en-US");
+  const fmtPct = (n) => (Math.round(n * 100) / 100).toString().replace(/\.0+$/, "") + "%";
+  const parseNum = (s) => {
+    if (s == null) return 0;
+    const n = parseFloat(String(s).replace(/[^0-9.\-]/g, ""));
+    return isNaN(n) ? 0 : n;
+  };
+
+  // ---- VA Funding Fee
+  function fundingFeeRate(downPct, subsequent) {
+    if (downPct >= 10) return 0.0125;
+    if (downPct >= 5)  return 0.0150;
+    return subsequent ? 0.0330 : 0.0215;
+  }
+
+  // ---- Compute & render
+  function compute() {
+    const price = parseNum(homePriceText.value);
+    const downPct = Math.min(100, Math.max(0, parseNum(downPctText.value)));
+    const downAmt = price * (downPct / 100);
+
+    const baseLoan = Math.max(0, price - downAmt);
+    const ffRate = disabled.checked ? 0 : fundingFeeRate(downPct, subsequentUse.checked);
+    const fundingFee = baseLoan * ffRate;
+    const totalLoan = baseLoan + fundingFee;
+
+    const annualRate = parseNum(rateText.value) / 100;
+    const r = annualRate / 12;
+    const n = term * 12;
+    let pAndI = 0;
+    if (totalLoan > 0 && r > 0) {
+      pAndI = totalLoan * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    } else if (totalLoan > 0) {
+      pAndI = totalLoan / n;
+    }
+
+    // Taxes - use $ if entered, else use percent
+    let annualTax = parseNum(taxAmtText.value);
+    if (!annualTax) {
+      const tPct = parseNum(taxPctText.value) / 100;
+      annualTax = price * tPct;
+    }
+    const annualIns = price * (parseNum(insText.value) / 100);
+    const monthlyHOA = parseNum(hoaText.value);
+
+    const monthly = pAndI + annualTax / 12 + annualIns / 12 + monthlyHOA;
+
+    // Render numeric outputs
+    $("monthlyOut").textContent = fmt$(monthly);
+    $("outPrice").textContent = fmt$(price);
+    $("outDown").textContent = fmt$(downAmt);
+    $("outFee").textContent = fmt$(fundingFee);
+    $("outTotal").textContent = fmt$(totalLoan);
+
+    // Sync home price slider progress fill
+    const hpPct = ((price - parseFloat(homePrice.min)) / (parseFloat(homePrice.max) - parseFloat(homePrice.min))) * 100;
+    homePrice.style.setProperty("--pct", Math.max(0, Math.min(100, hpPct)) + "%");
+    downPayment.style.setProperty("--pct", downPct + "%");
+  }
+
+  // ---- Two-way bindings: Home Price
+  function setHomePrice(val, source) {
+    val = Math.max(parseFloat(homePrice.min), Math.min(parseFloat(homePrice.max), val));
+    if (source !== "slider") homePrice.value = val;
+    if (source !== "text") homePriceText.value = fmt$(val);
+    syncDownFromPct();
+    compute();
+  }
+  homePrice.addEventListener("input", () => setHomePrice(parseNum(homePrice.value), "slider"));
+  homePriceText.addEventListener("change", () => setHomePrice(parseNum(homePriceText.value), "text"));
+  homePriceText.addEventListener("blur", () => { homePriceText.value = fmt$(parseNum(homePriceText.value)); });
+
+  // ---- Down payment bindings: slider drives percent (0..100), amount derived from price
+  function syncDownFromPct() {
+    const price = parseNum(homePriceText.value);
+    const pct = parseNum(downPctText.value);
+    downAmtText.value = fmt$(price * (pct / 100));
+  }
+  function setDownPct(pct, source) {
+    pct = Math.max(0, Math.min(100, pct));
+    if (source !== "slider") downPayment.value = pct;
+    downPctText.value = fmtPct(pct);
+    const price = parseNum(homePriceText.value);
+    downAmtText.value = fmt$(price * (pct / 100));
+    compute();
+  }
+  function setDownAmt(amt) {
+    const price = parseNum(homePriceText.value);
+    const pct = price > 0 ? (amt / price) * 100 : 0;
+    setDownPct(pct, "amt");
+  }
+  downPayment.addEventListener("input", () => setDownPct(parseNum(downPayment.value), "slider"));
+  downPctText.addEventListener("change", () => setDownPct(parseNum(downPctText.value), "pct"));
+  downAmtText.addEventListener("change", () => setDownAmt(parseNum(downAmtText.value)));
+  downPctText.addEventListener("blur", () => { downPctText.value = fmtPct(parseNum(downPctText.value)); });
+  downAmtText.addEventListener("blur", () => { downAmtText.value = fmt$(parseNum(downAmtText.value)); });
+
+  // ---- Rate
+  rateText.addEventListener("change", () => {
+    rateText.value = (Math.round(parseNum(rateText.value) * 100) / 100) + " %";
+    compute();
+  });
+  rateText.addEventListener("blur", () => {
+    rateText.value = (Math.round(parseNum(rateText.value) * 100) / 100) + " %";
+  });
+
+  // ---- Term toggle
+  termToggle.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      termToggle.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      term = parseInt(btn.dataset.term, 10);
+      compute();
+    });
+  });
+
+  // ---- Checkboxes
+  disabled.addEventListener("change", compute);
+  subsequentUse.addEventListener("change", compute);
+
+  // ---- Advanced fields
+  [taxAmtText, taxPctText, hoaText, insText].forEach((el) => {
+    el.addEventListener("change", compute);
+    el.addEventListener("blur", compute);
+  });
+
+  // ---- Advanced toggle
+  advToggle.addEventListener("click", () => {
+    advPanel.classList.toggle("open");
+    advToggle.classList.toggle("open");
+    advToggle.firstChild.textContent = advPanel.classList.contains("open")
+      ? "Advanced Settings "
+      : "Advanced Settings ";
+    // swap arrow direction text just in case (rotation handles it visually)
+  });
+
+  // ---- Initial sync (price slider fill etc.)
+  homePrice.value = 250000;
+  homePriceText.value = "$250,000";
+  downPayment.value = 0;
+  downPctText.value = "0%";
+  downAmtText.value = "$0";
+  // Show advanced by default to match second screenshot? Keep closed - second image shows expanded.
+  // Actually second screenshot shows expanded — open by default to match
+  advPanel.classList.add("open");
+  advToggle.classList.add("open");
+
+  compute();
+})();
+</script>
+</body>
+</html>
