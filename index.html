@@ -4,6 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prestige Services | Custom Home Service Quote in 60 Seconds</title>
+
+<!-- Google Ads tag — replace AW-XXXXXXXXXX with your Conversion ID from Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXXXXX');
+</script>
+
 <style>
   :root {
     --bg: #0d0d0d;
@@ -1776,6 +1786,34 @@ function revealQuote() {
   successMsg.classList.add('show');
   state.revealed = true;
   syncViewportHeight();
+
+  // Google Ads conversion — replace AW-XXXXXXXXXX/YYYYYYYYYYYY with your Conversion ID/Label
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'conversion', {
+      send_to: 'AW-XXXXXXXXXX/YYYYYYYYYYYY',
+      value: Math.round((q.low + q.high) / 2),
+      currency: 'USD',
+    });
+  }
+
+  // Send lead to backend (Twilio SMS + Google Sheets)
+  const sub = getCurrentSubtype();
+  fetch('/api/lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      firstName: $('first-name').value.trim(),
+      lastName:  $('last-name').value.trim(),
+      phone:     phoneInput.value,
+      email:     emailInput.value.trim(),
+      zip:       $('zip').value.trim(),
+      service:   state.serviceKey,
+      subtype:   sub ? sub.name : state.subtypeKey,
+      size:      getEffectiveSize(),
+      quoteLow:  q.low,
+      quoteHigh: q.high,
+    }),
+  }).catch((err) => console.error('Lead submission error:', err));
 }
 
 // ============================================================================
