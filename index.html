@@ -111,12 +111,39 @@
     margin: 20px 0 10px;
     line-height: 1.1;
   }
+  h1 .accent { color: var(--yellow); }
   .hero-sub {
-    font-size: 38px;
-    font-weight: 700;
-    font-style: italic;
-    margin: 0 0 30px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #cfcfcf;
+    max-width: 640px;
+    margin: 0 auto 26px;
   }
+  .hero-benefits {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 28px;
+    margin: 0 auto 24px;
+  }
+  .benefit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .benefit svg { width: 22px; height: 22px; fill: var(--yellow); flex-shrink: 0; }
+  .hero-prompt {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin: 6px 0 0;
+  }
+  .hero-prompt .arrow { display: inline-block; }
   .tagline {
     display: inline-flex;
     align-items: center;
@@ -551,7 +578,7 @@
   /* Responsive */
   @media (max-width: 900px) {
     h1 { font-size: 42px; }
-    .hero-sub { font-size: 26px; }
+    .hero-sub { font-size: 20px; }
     .tile-grid { grid-template-columns: repeat(2, 1fr); }
     .funnel-step { padding: 28px 22px; }
     header.site-header { padding: 16px 20px; gap: 12px; }
@@ -575,12 +602,10 @@
 
     .hero { margin: 8px auto 16px; }
     h1 { font-size: 34px; margin: 8px 0 8px; }
-    .hero-sub { font-size: 24px; margin-bottom: 18px; }
-    .tagline { gap: 10px; }
-    .laurel { display: none; }
-    .tagline-main { font-size: 18px; }
-    .tagline-sub { font-size: 16px; }
-    .tagline-sub .dot { padding: 0 4px; }
+    .hero-sub { font-size: 18px; margin-bottom: 20px; }
+    .hero-benefits { gap: 10px 0; flex-direction: column; align-items: center; margin-bottom: 20px; }
+    .benefit { font-size: 17px; }
+    .hero-prompt { font-size: 14px; }
 
     .funnel-wrapper { margin-top: 24px; }
     .progress-row { flex-direction: column; align-items: stretch; gap: 8px; margin-bottom: 14px; }
@@ -1011,27 +1036,16 @@
 
 <main>
   <section class="hero">
-    <h1>Custom Home Service Quote</h1>
-    <p class="hero-sub">in 60 Seconds or Less</p>
+    <h1>Get an Instant Price Range for <span class="accent">Your Project</span></h1>
+    <p class="hero-sub">Answer a few quick questions and see your estimated cost in under 60 seconds.</p>
 
-    <div class="tagline">
-      <svg class="laurel" viewBox="0 0 36 60">
-        <path d="M30 4 Q14 10 8 28 Q4 46 18 56 Q12 44 16 32 Q20 20 30 14 Z"/>
-        <path d="M24 12 Q14 20 14 30" stroke="#f5b800" stroke-width="1.5" fill="none"/>
-        <path d="M22 22 Q14 28 14 36" stroke="#f5b800" stroke-width="1.5" fill="none"/>
-        <path d="M20 32 Q14 38 16 46" stroke="#f5b800" stroke-width="1.5" fill="none"/>
-      </svg>
-      <div class="tagline-text">
-        <div class="tagline-main">Oklahoma's Trusted Home Services Company</div>
-        <div class="tagline-sub">Fence<span class="dot">•</span>Concrete<span class="dot">•</span>Epoxy<span class="dot">•</span>Patios<span class="dot">•</span>Pergolas</div>
-      </div>
-      <svg class="laurel right" viewBox="0 0 36 60">
-        <path d="M30 4 Q14 10 8 28 Q4 46 18 56 Q12 44 16 32 Q20 20 30 14 Z"/>
-        <path d="M24 12 Q14 20 14 30" stroke="#f5b800" stroke-width="1.5" fill="none"/>
-        <path d="M22 22 Q14 28 14 36" stroke="#f5b800" stroke-width="1.5" fill="none"/>
-        <path d="M20 32 Q14 38 16 46" stroke="#f5b800" stroke-width="1.5" fill="none"/>
-      </svg>
+    <div class="hero-benefits">
+      <span class="benefit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.6l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z"/></svg>Free Instant Quote</span>
+      <span class="benefit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.6l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z"/></svg>No Obligation</span>
+      <span class="benefit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.6l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z"/></svg>Oklahoma Owned &amp; Operated</span>
     </div>
+
+    <p class="hero-prompt">Select Your Project Type Below <span class="arrow">↓</span></p>
   </section>
 
   <section class="funnel-wrapper" id="quote">
@@ -1046,9 +1060,6 @@
 
           <!-- STEP 1: Service Selection -->
           <section class="funnel-step" data-step="1">
-            <div class="step-header">
-              <h2 class="step-title">What service do you need a quote for?</h2>
-            </div>
             <div class="tile-grid" id="service-grid"></div>
           </section>
 
@@ -1056,7 +1067,6 @@
           <section class="funnel-step" data-step="2">
             <div class="step-header">
               <button type="button" class="back-btn" data-back-to="1">← Back</button>
-              <h2 class="step-title" id="subtype-title">Pick a style</h2>
             </div>
             <div class="tile-grid" id="subtype-grid"></div>
           </section>
@@ -1065,7 +1075,6 @@
           <section class="funnel-step" data-step="3">
             <div class="step-header">
               <button type="button" class="back-btn" data-back-to="2">← Back</button>
-              <h2 class="step-title" id="metric-title">Tell us the size</h2>
             </div>
             <div id="metric-content"></div>
             <div class="step-actions">
@@ -1077,7 +1086,6 @@
           <section class="funnel-step" data-step="4">
             <div class="step-header">
               <button type="button" class="back-btn" data-back-to="3">← Back</button>
-              <h2 class="step-title">Almost there — <span class="accent">reveal your quote</span></h2>
             </div>
             <form id="lead-form" autocomplete="off" novalidate>
               <div class="form-grid">
@@ -1616,8 +1624,6 @@ const track = $('funnel-track');
 const viewport = document.querySelector('.funnel-viewport');
 const serviceGrid = $('service-grid');
 const subtypeGrid = $('subtype-grid');
-const subtypeTitle = $('subtype-title');
-const metricTitle = $('metric-title');
 const metricContent = $('metric-content');
 const sizeNext = $('size-next');
 const stepLabel = $('step-label');
@@ -1653,7 +1659,6 @@ function renderServiceTiles() {
 
 function renderSubtypeTiles(serviceKey) {
   const svc = SERVICES[serviceKey];
-  subtypeTitle.innerHTML = `Pick a <span class="accent">${svc.name}</span> style`;
   subtypeGrid.innerHTML = '';
   svc.subtypes.forEach((sub) => {
     const tile = document.createElement('button');
@@ -1671,7 +1676,6 @@ function renderSubtypeTiles(serviceKey) {
 
 function renderMetric(serviceKey) {
   const svc = SERVICES[serviceKey];
-  metricTitle.innerHTML = `How big is your <span class="accent">${svc.name.toLowerCase()}</span> project?`;
   metricContent.innerHTML = '';
 
   if (svc.metric.type === 'number') {
