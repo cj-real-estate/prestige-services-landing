@@ -6,20 +6,18 @@
 //   GOOGLE_CLIENT_EMAIL     — Service account email from Google Cloud
 //   GOOGLE_PRIVATE_KEY      — Service account private key (with \n as newlines)
 
-const crypto = require('crypto');
+const { getGoogleAccessToken } = require('../lib/google');
 
 // Existing "Prestige_Services_Tracker" workbook (owned by calebjfree@gmail.com)
 const SHEET_ID = '1xUt5eLvNKHQ6QmeAb88FNVTpPL1MEiWxAb5_szcfwss';
 
-// Landing-page service key -> existing lead tab name in the workbook.
-// Patios & Pergolas have no dedicated tab, so they land in "Other Leads"
-// (their real service is preserved in the Notes column).
+// Landing-page service key -> lead tab name in the workbook.
 const SERVICE_TABS = {
   fence: 'Fence Leads',
   concrete: 'Concrete Leads',
   epoxy: 'Epoxy Leads',
-  patios: 'Other Leads',
-  pergolas: 'Other Leads',
+  patios: 'Patios Leads',
+  pergolas: 'Pergolas Leads',
 };
 
 const SERVICE_LABELS = {
@@ -29,39 +27,6 @@ const SERVICE_LABELS = {
   patios: 'Patios',
   pergolas: 'Pergolas',
 };
-
-async function getGoogleAccessToken() {
-  const email = process.env.GOOGLE_CLIENT_EMAIL;
-  const rawKey = (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n');
-
-  const header = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
-  const now = Math.floor(Date.now() / 1000);
-  const claimsObj = {
-    iss: email,
-    scope: 'https://www.googleapis.com/auth/spreadsheets',
-    aud: 'https://oauth2.googleapis.com/token',
-    exp: now + 3600,
-    iat: now,
-  };
-  const payload = Buffer.from(JSON.stringify(claimsObj)).toString('base64url');
-
-  const sign = crypto.createSign('RSA-SHA256');
-  sign.update(`${header}.${payload}`);
-  const signature = sign.sign(rawKey, 'base64url');
-
-  const jwt = `${header}.${payload}.${signature}`;
-
-  const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-      assertion: jwt,
-    }),
-  });
-  const { access_token } = await tokenRes.json();
-  return access_token;
-}
 
 async function appendToSheet(tab, values) {
   const token = await getGoogleAccessToken();
