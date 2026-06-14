@@ -13,6 +13,7 @@ const SHEET_ID = '1xUt5eLvNKHQ6QmeAb88FNVTpPL1MEiWxAb5_szcfwss';
 const SETUP_KEY = 'ps_setup_7f3a91';
 const SOURCE_TAB = 'Other Leads';            // template to duplicate (same style as all lead tabs)
 const NEW_TABS = ['Patios Leads', 'Pergolas Leads'];
+const BANNERS = { 'Patios Leads': 'PATIOS LEADS', 'Pergolas Leads': 'PERGOLAS LEADS' };
 
 async function api(token, method, path, body) {
   const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${path}`, {
@@ -69,39 +70,46 @@ module.exports = async function handler(req, res) {
     const headerIdx = colA.findIndex((v) => v.toLowerCase() === 'date added');
     const headerRow = headerIdx === -1 ? 1 : headerIdx + 1; // 1-based
 
+    // Find which row holds the banner title (row above the header)
+    const bannerRow = Math.max(1, headerRow - 1);
+
     const report = [];
     let insertIndex = source.index + 1;
 
     for (const name of NEW_TABS) {
-      if (byTitle[name]) {
-        report.push({ tab: name, status: 'already exists, skipped' });
-        insertIndex++;
-        continue;
-      }
+      let status = 'already exists';
 
-      // 3. Duplicate the source tab with all its formatting
-      const dup = await api(token, 'POST', `${SHEET_ID}:batchUpdate`, {
-        requests: [{
-          duplicateSheet: {
-            sourceSheetId: source.sheetId,
-            insertSheetIndex: insertIndex,
-            newSheetName: name,
-          },
-        }],
-      });
+      if (!byTitle[name]) {
+        // 3. Duplicate the source tab with all its formatting
+        await api(token, 'POST', `${SHEET_ID}:batchUpdate`, {
+          requests: [{
+            duplicateSheet: {
+              sourceSheetId: source.sheetId,
+              insertSheetIndex: insertIndex,
+              newSheetName: name,
+            },
+          }],
+        });
+
+        // 4. Clear the duplicated sample data rows, keeping the header + formatting
+        await api(
+          token, 'POST',
+          `${SHEET_ID}/values/${encodeURIComponent(`${name}!A${headerRow + 1}:K`)}:clear`
+        );
+        status = 'created';
+      }
       insertIndex++;
 
-      // 4. Clear the duplicated sample data rows, keeping the header + formatting
-      await api(
-        token, 'POST',
-        `${SHEET_ID}/values/${encodeURIComponent(`${name}!A${headerRow + 1}:K`)}:clear`
-      );
+      // 5. Set the banner title to match this tab (idempotent)
+      if (BANNERS[name]) {
+        await api(
+          token, 'PUT',
+          `${SHEET_ID}/values/${encodeURIComponent(`${name}!A${bannerRow}`)}?valueInputOption=USER_ENTERED`,
+          { values: [[BANNERS[name]]] }
+        );
+      }
 
-      report.push({
-        tab: name,
-        status: 'created',
-        sheetId: dup.replies[0].duplicateSheet.properties.sheetId,
-      });
+      report.push({ tab: name, status, banner: BANNERS[name] || null });
     }
 
     res.status(200).json({ ok: true, headerRow, report });
