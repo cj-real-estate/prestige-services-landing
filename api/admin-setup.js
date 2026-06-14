@@ -33,6 +33,22 @@ module.exports = async function handler(req, res) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
+  // Safe diagnostics: reports the SHAPE of the credentials, never the secret middle.
+  if (req.query.diag === '1') {
+    const k = process.env.GOOGLE_PRIVATE_KEY || '';
+    return res.status(200).json({
+      clientEmail: process.env.GOOGLE_CLIENT_EMAIL || '(missing)',
+      keyLength: k.length,
+      head: k.slice(0, 32),
+      tail: k.slice(-32),
+      hasLiteralBackslashN: k.includes('\\n'),
+      hasRealNewline: k.includes('\n'),
+      startsWithBegin: k.trimStart().replace(/^["']/, '').startsWith('-----BEGIN'),
+      twilioSidSet: !!process.env.TWILIO_ACCOUNT_SID,
+      twilioTokenSet: !!process.env.TWILIO_AUTH_TOKEN,
+    });
+  }
+
   try {
     const token = await getGoogleAccessToken();
 
