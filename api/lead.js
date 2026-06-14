@@ -8,9 +8,21 @@
 
 const crypto = require('crypto');
 
-const SHEET_ID = '1VLvGJVTNJus2qPZAOBbAclyHh_Fh0f57DFdnWuOmtrs';
+// Existing "Prestige_Services_Tracker" workbook (owned by calebjfree@gmail.com)
+const SHEET_ID = '1xUt5eLvNKHQ6QmeAb88FNVTpPL1MEiWxAb5_szcfwss';
 
+// Landing-page service key -> existing lead tab name in the workbook.
+// Patios & Pergolas have no dedicated tab, so they land in "Other Leads"
+// (their real service is preserved in the Notes column).
 const SERVICE_TABS = {
+  fence: 'Fence Leads',
+  concrete: 'Concrete Leads',
+  epoxy: 'Epoxy Leads',
+  patios: 'Other Leads',
+  pergolas: 'Other Leads',
+};
+
+const SERVICE_LABELS = {
   fence: 'Fence',
   concrete: 'Concrete',
   epoxy: 'Epoxy Flooring',
@@ -53,7 +65,8 @@ async function getGoogleAccessToken() {
 
 async function appendToSheet(tab, values) {
   const token = await getGoogleAccessToken();
-  const range = encodeURIComponent(`${tab}!A:L`);
+  // Lead tabs span columns A:K (Date Added ... Notes)
+  const range = encodeURIComponent(`${tab}!A:K`);
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
 
   const res = await fetch(url, {
@@ -108,33 +121,59 @@ module.exports = async function handler(req, res) {
 
   const {
     firstName, lastName, phone, email, zip,
-    service, subtype, size, quoteLow, quoteHigh,
+    service, subtype, size, quoteLow, quoteHigh, gclid,
   } = req.body || {};
 
-  const tab = SERVICE_TABS[service] || 'Fence';
-  const timestamp = new Date().toLocaleString('en-US', {
+  const tab = SERVICE_TABS[service] || 'Other Leads';
+  const serviceLabel = SERVICE_LABELS[service] || service || 'Unknown';
+
+  // Date Added formatted MM/DD/YYYY (Central) to match existing rows
+  const dateAdded = new Date().toLocaleDateString('en-US', {
     timeZone: 'America/Chicago',
-    dateStyle: 'short',
-    timeStyle: 'short',
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric',
   });
 
   const sizeUnit = service === 'fence' ? 'lin ft' : 'sq ft';
+  const estValue = quoteLow != null && quoteHigh != null
+    ? Math.round((Number(quoteLow) + Number(quoteHigh)) / 2)
+    : '';
+
+  // Notes: preserve the funnel detail (real service, sub-type, size, full range)
+  const notes =
+    `Landing page funnel — ${serviceLabel} / ${subtype} · ${size} ${sizeUnit}` +
+    (quoteLow != null ? ` · Est $${Number(quoteLow).toLocaleString()}-$${Number(quoteHigh).toLocaleString()}` : '') +
+    (zip ? ` · ZIP ${zip}` : '');
+
+  // Row matches lead-tab columns A:K:
+  // Date Added | First Name | Last Name | Email | Phone | Service Type | Est. Value | Status | GCLID | Follow-Up Date | Notes
+  const sheetRow = [
+    dateAdded,
+    firstName || '',
+    lastName || '',
+    email || '',
+    phone || '',
+    subtype || serviceLabel,
+    estValue ? `$${estValue.toLocaleString()}` : '',
+    'Open',
+    gclid || '',
+    '',
+    notes,
+  ];
+
   const smsBody =
     `NEW PRESTIGE LEAD\n\n` +
     `${firstName} ${lastName}\n` +
     `Phone: ${phone}\n` +
     `Email: ${email}\n` +
     `ZIP: ${zip}\n\n` +
-    `Service: ${tab}\n` +
+    `Service: ${serviceLabel}\n` +
     `Type: ${subtype}\n` +
     `Size: ${size} ${sizeUnit}\n` +
     `Est. Quote: $${quoteLow} - $${quoteHigh}\n\n` +
-    `Time: ${timestamp} CST`;
-
-  const sheetRow = [
-    timestamp, firstName, lastName, phone, email, zip,
-    tab, subtype, `${size} ${sizeUnit}`, `$${quoteLow}`, `$${quoteHigh}`, 'Landing Page',
-  ];
+    `Logged to: ${tab}\n` +
+    `${dateAdded} CST`;
 
   const results = await Promise.allSettled([
     sendSMS('5806701829', smsBody),

@@ -1775,6 +1775,16 @@ function updateQuote() {
   }
 }
 
+// Capture the Google Ads click ID so it can be logged with the lead.
+// Reads ?gclid= from the URL on first visit and persists it for the session.
+function getGclid() {
+  try {
+    const fromUrl = new URLSearchParams(window.location.search).get('gclid');
+    if (fromUrl) { sessionStorage.setItem('gclid', fromUrl); return fromUrl; }
+    return sessionStorage.getItem('gclid') || '';
+  } catch (e) { return ''; }
+}
+
 function revealQuote() {
   const q = computeQuote();
   if (!q) return;
@@ -1812,6 +1822,7 @@ function revealQuote() {
       size:      getEffectiveSize(),
       quoteLow:  q.low,
       quoteHigh: q.high,
+      gclid:     getGclid(),
     }),
   }).catch((err) => console.error('Lead submission error:', err));
 }
