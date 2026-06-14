@@ -1797,11 +1797,10 @@ function revealQuote() {
   state.revealed = true;
   syncViewportHeight();
 
-  // Google Ads conversion — replace YYYYYYYYYYYY with your conversion action's label
-  //   (Google Ads → Goals → Conversions → your action → shows AW-17586471189/LABEL)
+  // Google Ads conversion — "Prestige Quote Form Submit" action
   if (typeof gtag !== 'undefined') {
     gtag('event', 'conversion', {
-      send_to: 'AW-17586471189/YYYYYYYYYYYY',
+      send_to: 'AW-17586471189/ID_yCLD4774cEJWC8cFB',
       value: Math.round((q.low + q.high) / 2),
       currency: 'USD',
     });
