@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prestige Services | Custom Home Service Quote in 60 Seconds</title>
 
-<!-- Google Ads tag — replace AW-XXXXXXXXXX with your Conversion ID from Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+<!-- Google Ads tag (FlowAgent, AW-17586471189) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17586471189"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'AW-XXXXXXXXXX');
+  gtag('config', 'AW-17586471189');
 </script>
 
 <style>
@@ -1797,10 +1797,11 @@ function revealQuote() {
   state.revealed = true;
   syncViewportHeight();
 
-  // Google Ads conversion — replace AW-XXXXXXXXXX/YYYYYYYYYYYY with your Conversion ID/Label
+  // Google Ads conversion — replace YYYYYYYYYYYY with your conversion action's label
+  //   (Google Ads → Goals → Conversions → your action → shows AW-17586471189/LABEL)
   if (typeof gtag !== 'undefined') {
     gtag('event', 'conversion', {
-      send_to: 'AW-XXXXXXXXXX/YYYYYYYYYYYY',
+      send_to: 'AW-17586471189/YYYYYYYYYYYY',
       value: Math.round((q.low + q.high) / 2),
       currency: 'USD',
     });
