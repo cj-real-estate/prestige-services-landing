@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prestige Fence | Commercial &amp; Government Perimeter Security Contractors</title>
+<meta name="description" content="Prestige Fence is a self-performing commercial and government fencing subcontractor specializing in perimeter security, anti-ram barriers, automated access control, and high-security enclosures for federal, military, utility, and infrastructure projects." />
+
+<style>
+  :root {
+    --bg: #0a0b0d;
+    --bg-2: #0f1115;
+    --panel: #14161b;
+    --panel-2: #181b21;
+    --line: #262a31;
+    --line-soft: #20242b;
+    --gold: #f5b800;
+    --gold-2: #d99e0b;
+    --gold-deep: #b8860b;
+    --gold-soft: rgba(245,184,0,0.12);
+    --steel: #6b7886;
+    --text: #f4f6f8;
+    --muted: #9aa3ad;
+    --muted-2: #767e88;
+    --white: #ffffff;
+    --maxw: 1240px;
+    --r: 14px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--gold); color: #111; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* Chain-link texture overlay used in several sections */
+  .mesh-bg {
+    background-image:
+      linear-gradient(135deg, transparent 47%, rgba(245,184,0,0.05) 49%, rgba(245,184,0,0.05) 51%, transparent 53%),
+      linear-gradient(45deg, transparent 47%, rgba(245,184,0,0.05) 49%, rgba(245,184,0,0.05) 51%, transparent 53%);
+    background-size: 26px 26px;
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 12.5px;
+    margin: 0 0 18px;
+  }
+  .eyebrow::before {
+    content: ""; width: 28px; height: 2px; background: var(--gold); display: inline-block;
+  }
+  .eyebrow.center { justify-content: center; }
+
+  h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; margin: 0; }
+  .accent { color: var(--gold); }
+
+  /* ============ Top bar ============ */
+  .topbar {
+    background: #060708;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 42px; gap: 20px; }
+  .topbar .tb-left { display: flex; gap: 26px; }
+  .topbar .tb-left span { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .topbar svg { width: 14px; height: 14px; fill: var(--gold); flex-shrink: 0; }
+  .topbar a { color: var(--muted); text-decoration: none; }
+  .topbar a:hover { color: var(--gold); }
+  .tb-right { display: flex; gap: 22px; }
+  @media (max-width: 880px) { .topbar { display: none; } }
+
+  /* ============ Header ============ */
+  header.site-header {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(10,11,13,0.86);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; min-height: 100px; gap: 24px; padding: 8px 0; }
+  .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; flex-shrink: 0; }
+  .brand-logo { height: 110px; width: auto; display: block; }
+  .foot-brand .brand-logo { height: 150px; margin-bottom: 10px; }
+  .main-nav { display: flex; align-items: center; gap: 30px; margin-left: auto; }
+  .main-nav a {
+    color: var(--text); text-decoration: none; font-weight: 600; font-size: 15px;
+    letter-spacing: 0.2px; transition: color 0.15s; white-space: nowrap;
+  }
+  .main-nav a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: #111; text-decoration: none;
+    padding: 13px 24px; border-radius: 9px; font-weight: 800; font-size: 14.5px;
+    white-space: nowrap; transition: transform 0.12s, box-shadow 0.15s;
+    box-shadow: 0 6px 20px rgba(245,184,0,0.22);
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(245,184,0,0.34); }
+  .menu-btn { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 8px; }
+  .menu-btn span { width: 28px; height: 3px; background: var(--gold); border-radius: 2px; display: block; }
+  @media (max-width: 1040px) { .main-nav, .nav-cta { display: none; } .menu-btn { display: flex; } }
+
+  /* Mobile menu */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 300; background: rgba(8,9,11,0.98);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: auto; }
+  .mobile-menu a { color: var(--text); text-decoration: none; font-size: 22px; font-weight: 700; padding: 12px; }
+  .mobile-menu a:active { color: var(--gold); }
+  .mobile-menu .mm-cta { margin-top: 20px; background: var(--gold); color: #111; padding: 14px 34px; border-radius: 10px; font-weight: 800; }
+  .menu-close { position: absolute; top: 22px; right: 26px; background: none; border: none; color: var(--gold); font-size: 42px; cursor: pointer; line-height: 1; }
+
+  /* ============ Hero ============ */
+  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(1100px 540px at 78% -10%, rgba(245,184,0,0.16), transparent 60%),
+      radial-gradient(900px 600px at 0% 110%, rgba(107,120,134,0.16), transparent 55%),
+      linear-gradient(180deg, #0c0d10, #0a0b0d 60%);
+  }
+  .hero-bg::after {
+    content: ""; position: absolute; inset: 0; opacity: 0.5;
+    background-image:
+      linear-gradient(135deg, transparent 47%, rgba(245,184,0,0.06) 49%, rgba(245,184,0,0.06) 51%, transparent 53%),
+      linear-gradient(45deg, transparent 47%, rgba(245,184,0,0.06) 49%, rgba(245,184,0,0.06) 51%, transparent 53%);
+    background-size: 30px 30px;
+    -webkit-mask-image: linear-gradient(105deg, transparent 38%, #000 100%);
+    mask-image: linear-gradient(105deg, transparent 38%, #000 100%);
+  }
+  .hero .wrap { position: relative; z-index: 1; padding-top: 86px; padding-bottom: 86px; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold-soft); border: 1px solid rgba(245,184,0,0.3);
+    color: var(--gold); font-weight: 700; font-size: 13px; letter-spacing: 1px;
+    padding: 8px 16px; border-radius: 100px; text-transform: uppercase; margin-bottom: 26px;
+  }
+  .hero-badge svg { width: 15px; height: 15px; fill: var(--gold); }
+  .hero h1 { font-size: clamp(38px, 5.6vw, 70px); }
+  .hero h1 span.line { display: block; }
+  .hero-sub { font-size: clamp(17px, 2vw, 21px); color: var(--muted); max-width: 580px; margin: 26px 0 0; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 38px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 17px 32px; border-radius: 10px; font-weight: 800; font-size: 16px;
+    text-decoration: none; border: none; cursor: pointer; font-family: inherit;
+    transition: transform 0.12s, box-shadow 0.15s, background 0.15s, border-color 0.15s;
+  }
+  .btn svg { width: 18px; height: 18px; }
+  .btn-gold { background: var(--gold); color: #111; box-shadow: 0 8px 26px rgba(245,184,0,0.26); }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(245,184,0,0.38); }
+  .btn-gold svg { fill: #111; }
+  .btn-ghost { background: rgba(255,255,255,0.04); color: var(--text); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-ghost svg { fill: currentColor; }
+
+  .hero-meta { display: flex; gap: 26px; margin-top: 40px; flex-wrap: wrap; }
+  .hero-meta .hm { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14.5px; font-weight: 600; }
+  .hero-meta svg { width: 20px; height: 20px; fill: var(--gold); }
+
+  /* Hero right visual */
+  .hero-visual { display: flex; align-items: center; }
+  .hero-img-wrap {
+    position: relative; width: 100%; border-radius: 16px; overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(245,184,0,0.12);
+  }
+  .hero-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.8); }
+  .hero-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, transparent 40%, rgba(10,11,13,0.75) 100%),
+                linear-gradient(to top, rgba(10,11,13,0.6) 0%, transparent 45%);
+  }
+  .hero-img-badge {
+    position: absolute; bottom: 20px; left: 20px;
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(10,11,13,0.78); backdrop-filter: blur(10px);
+    border: 1px solid rgba(245,184,0,0.25); border-radius: 100px;
+    padding: 9px 16px; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
+  }
+  .hib-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); flex-shrink: 0; }
+
+  /* Hero side stat card */
+  .hero-card {
+    background: linear-gradient(180deg, var(--panel), var(--bg-2));
+    border: 1px solid var(--line); border-radius: 18px; padding: 30px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+  }
+  .hero-card .hc-head { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
+  .hero-card .hc-head .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+  .hero-card .hc-head h3 { font-size: 15px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .hc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 20px; }
+  .hc-stat .v { font-size: 34px; font-weight: 900; color: var(--white); letter-spacing: -0.03em; }
+  .hc-stat .v .accent { color: var(--gold); }
+  .hc-stat .l { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+  @media (max-width: 920px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-card { order: 2; }
+    .hero-visual { display: none; }
+  }
+
+  /* ============ Logo / credential strip ============ */
+  .cred-strip { background: #060708; border-bottom: 1px solid var(--line); }
+  .cred-strip .wrap { display: flex; align-items: center; gap: 18px 40px; flex-wrap: wrap; justify-content: center; padding: 26px 28px; }
+  .cred-strip .label { color: var(--muted-2); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-right: 8px; }
+  .cred {
+    display: inline-flex; align-items: center; gap: 9px; color: var(--text);
+    font-weight: 700; font-size: 14px; letter-spacing: 0.3px; opacity: 0.92;
+  }
+  .cred svg { width: 22px; height: 22px; fill: var(--gold); flex-shrink: 0; }
+
+  /* ============ Section base ============ */
+  section.block { padding: 96px 0; position: relative; }
+  section.block.alt { background: var(--bg-2); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .section-head { max-width: 760px; margin: 0 auto 56px; text-align: center; }
+  .section-head.left { margin-left: 0; text-align: left; }
+  .section-title { font-size: clamp(30px, 4vw, 46px); }
+  .section-desc { color: var(--muted); font-size: 18px; margin-top: 18px; }
+
+  /* ============ Capabilities ============ */
+  .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .cap {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--r);
+    padding: 30px 28px; transition: transform 0.18s, border-color 0.18s, background 0.18s;
+    position: relative; overflow: hidden;
+  }
+  .cap::before { content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 0; background: var(--gold); transition: width 0.3s; }
+  .cap:hover { transform: translateY(-4px); border-color: rgba(245,184,0,0.45); background: var(--panel-2); }
+  .cap:hover::before { width: 100%; }
+  .cap-ico {
+    width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    background: var(--gold-soft); border: 1px solid rgba(245,184,0,0.25); margin-bottom: 20px;
+  }
+  .cap-ico svg { width: 30px; height: 30px; fill: var(--gold); }
+  .cap h3 { font-size: 20px; margin-bottom: 10px; }
+  .cap p { color: var(--muted); font-size: 15px; margin: 0; }
+  @media (max-width: 920px) { .cap-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .cap-grid { grid-template-columns: 1fr; } }
+
+  /* ============ Markets ============ */
+  .markets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .market {
+    position: relative; border-radius: var(--r); overflow: hidden; min-height: 230px;
+    border: 1px solid var(--line); display: flex; align-items: flex-end;
+    background-size: cover; background-position: center;
+  }
+  .market::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,11,13,0.2) 0%, rgba(10,11,13,0.55) 55%, rgba(10,11,13,0.95) 100%);
+  }
+  .market .m-body { position: relative; z-index: 1; padding: 22px; width: 100%; }
+  .market .m-ico { width: 36px; height: 36px; margin-bottom: 12px; }
+  .market .m-ico svg { width: 36px; height: 36px; fill: var(--gold); }
+  .market h3 { font-size: 18px; }
+  .market p { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
+  .market:hover { border-color: rgba(245,184,0,0.5); }
+  @media (max-width: 1040px) { .markets { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .markets { grid-template-columns: 1fr; } }
+
+  /* ============ Stats band ============ */
+  .stats-band { background: linear-gradient(120deg, #0e0f12, #121419); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+  .stats-band .wrap { padding: 64px 28px; position: relative; z-index: 1; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+  .stat { text-align: center; }
+  .stat .num { font-size: clamp(38px, 5vw, 56px); font-weight: 900; color: var(--gold); letter-spacing: -0.03em; line-height: 1; }
+  .stat .lab { color: var(--muted); font-size: 15px; margin-top: 12px; font-weight: 600; }
+  @media (max-width: 760px) { .stats-grid { grid-template-columns: 1fr 1fr; gap: 36px 20px; } }
+
+  /* ============ Projects ============ */
+  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .proj {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
+    transition: transform 0.18s, border-color 0.18s;
+  }
+  .proj:hover { transform: translateY(-4px); border-color: rgba(245,184,0,0.4); }
+  .proj-img { height: 200px; background-size: cover; background-position: center; position: relative; }
+  .proj-img .tag {
+    position: absolute; top: 14px; left: 14px; background: rgba(10,11,13,0.82); border: 1px solid rgba(245,184,0,0.4);
+    color: var(--gold); font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 6px; backdrop-filter: blur(4px);
+  }
+  .proj-body { padding: 24px 24px 26px; }
+  .proj-body h3 { font-size: 20px; margin-bottom: 6px; }
+  .proj-loc { color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px; }
+  .proj-body p { color: var(--muted); font-size: 14.5px; margin: 0 0 18px; }
+  .proj-meta { display: flex; gap: 24px; border-top: 1px solid var(--line); padding-top: 16px; }
+  .proj-meta .pm .pmv { color: var(--white); font-weight: 800; font-size: 17px; }
+  .proj-meta .pm .pml { color: var(--muted-2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  @media (max-width: 980px) { .proj-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .proj-grid { grid-template-columns: 1fr; } }
+
+  /* ============ Why / Differentiators ============ */
+  .why-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+  .why-list { display: flex; flex-direction: column; gap: 8px; }
+  .why-item { display: flex; gap: 20px; padding: 22px; border-radius: var(--r); border: 1px solid transparent; transition: background 0.18s, border-color 0.18s; }
+  .why-item:hover { background: var(--panel); border-color: var(--line); }
+  .why-num { color: var(--gold); font-weight: 900; font-size: 18px; font-family: "Inter", sans-serif; flex-shrink: 0; width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(245,184,0,0.3); display: flex; align-items: center; justify-content: center; background: var(--gold-soft); }
+  .why-item h3 { font-size: 19px; margin-bottom: 6px; }
+  .why-item p { color: var(--muted); font-size: 15px; margin: 0; }
+  .why-side {
+    background: linear-gradient(180deg, var(--panel), var(--bg-2)); border: 1px solid var(--line);
+    border-radius: 18px; padding: 38px; position: relative; overflow: hidden;
+  }
+  .why-side .quote-mark { font-size: 90px; color: var(--gold); line-height: 0.6; font-family: Georgia, serif; opacity: 0.5; }
+  .why-side blockquote { font-size: 21px; font-weight: 600; line-height: 1.5; margin: 14px 0 26px; }
+  .why-side .qa { display: flex; align-items: center; gap: 14px; }
+  .why-side .qa .av { width: 50px; height: 50px; border-radius: 50%; background: var(--gold); color: #111; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 19px; }
+  .why-side .qa .qn { font-weight: 800; font-size: 15px; }
+  .why-side .qa .qt { color: var(--muted); font-size: 13.5px; }
+  @media (max-width: 920px) { .why-wrap { grid-template-columns: 1fr; gap: 38px; } }
+
+  /* ============ Process ============ */
+  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: step; }
+  .pstep { position: relative; padding: 30px 26px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
+  .pstep .pn { font-size: 44px; font-weight: 900; color: rgba(245,184,0,0.22); line-height: 1; letter-spacing: -0.04em; }
+  .pstep h3 { font-size: 19px; margin: 12px 0 8px; }
+  .pstep p { color: var(--muted); font-size: 14.5px; margin: 0; }
+  @media (max-width: 920px) { .process { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .process { grid-template-columns: 1fr; } }
+
+  /* ============ Safety / compliance ============ */
+  .safety-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .safety-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .safety-stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 26px; }
+  .safety-stat .ss-v { font-size: 40px; font-weight: 900; color: var(--gold); letter-spacing: -0.03em; }
+  .safety-stat .ss-l { color: var(--muted); font-size: 14px; margin-top: 6px; font-weight: 600; }
+  .compliance-list { list-style: none; padding: 0; margin: 22px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+  .compliance-list li { display: flex; align-items: center; gap: 11px; font-size: 15px; font-weight: 600; }
+  .compliance-list svg { width: 20px; height: 20px; fill: var(--gold); flex-shrink: 0; }
+  @media (max-width: 860px) { .safety-wrap { grid-template-columns: 1fr; gap: 34px; } .compliance-list { grid-template-columns: 1fr; } }
+
+  /* ============ CTA + Bid form ============ */
+  .bid { position: relative; overflow: hidden; }
+  .bid-bg { position: absolute; inset: 0; background: radial-gradient(900px 500px at 80% 0%, rgba(245,184,0,0.14), transparent 60%), linear-gradient(180deg, #0d0e11, #0a0b0d); }
+  .bid .wrap { position: relative; z-index: 1; }
+  .bid-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 54px; align-items: start; }
+  .bid-info h2 { font-size: clamp(30px, 4vw, 44px); }
+  .bid-info p { color: var(--muted); font-size: 18px; margin: 20px 0 30px; }
+  .bid-points { list-style: none; padding: 0; margin: 0 0 34px; display: flex; flex-direction: column; gap: 16px; }
+  .bid-points li { display: flex; gap: 14px; align-items: flex-start; font-size: 16px; }
+  .bid-points .bp-ico { width: 28px; height: 28px; border-radius: 7px; background: var(--gold-soft); border: 1px solid rgba(245,184,0,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .bid-points .bp-ico svg { width: 16px; height: 16px; fill: var(--gold); }
+  .bid-points strong { display: block; font-weight: 700; }
+  .bid-points span { color: var(--muted); font-size: 14px; }
+  .bid-contact { display: flex; flex-direction: column; gap: 14px; }
+  .bid-contact a { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 18px; }
+  .bid-contact a svg { width: 20px; height: 20px; fill: var(--gold); }
+
+  .bid-form {
+    background: linear-gradient(180deg, var(--panel), var(--bg-2)); border: 1px solid var(--line);
+    border-radius: 18px; padding: 36px; box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+  }
+  .bid-form h3 { font-size: 23px; margin-bottom: 6px; }
+  .bid-form .bf-sub { color: var(--muted); font-size: 14.5px; margin-bottom: 24px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); }
+  .field input, .field select, .field textarea {
+    background: #0b0c0f; border: 1px solid var(--line); border-radius: 9px; color: var(--text);
+    padding: 13px 14px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+  }
+  .field textarea { resize: vertical; min-height: 92px; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,184,0,0.14); }
+  .field input::placeholder, .field textarea::placeholder { color: #5a626c; }
+  .field select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23f5b800' stroke-width='2' fill='none'/></svg>"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .bf-submit { width: 100%; justify-content: center; margin-top: 8px; }
+  .bf-note { color: var(--muted-2); font-size: 12px; text-align: center; margin-top: 14px; line-height: 1.5; }
+  .bf-success { display: none; text-align: center; padding: 30px 10px; }
+  .bf-success.show { display: block; }
+  .bf-success .check { width: 64px; height: 64px; margin: 0 auto 18px; }
+  .bf-success h3 { color: var(--gold); font-size: 24px; }
+  .bf-success p { color: var(--muted); font-size: 15px; margin-top: 10px; }
+  @media (max-width: 920px) { .bid-grid { grid-template-columns: 1fr; gap: 40px; } }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+  /* ============ Footer ============ */
+  footer.site-footer { background: #060708; border-top: 1px solid var(--line); padding: 64px 0 28px; }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 40px; }
+  .foot-brand img { height: 64px; margin-bottom: 18px; }
+  .foot-brand p { color: var(--muted); font-size: 14.5px; max-width: 320px; }
+  .foot-col h4 { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .foot-col a, .foot-col p { color: var(--muted); font-size: 14.5px; text-decoration: none; display: block; line-height: 2; margin: 0; }
+  .foot-col a:hover { color: var(--gold); }
+  .naics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .naics span { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; font-size: 12px; color: var(--muted); font-weight: 600; }
+  .foot-bottom { border-top: 1px solid var(--line); margin-top: 44px; padding-top: 24px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted-2); font-size: 13px; }
+  @media (max-width: 880px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  @media (max-width: 520px) { .foot-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left">
+      <span><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg><a href="tel:+18555550199">(855) 555-0199</a></span>
+      <span><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5z"/></svg><a href="mailto:estimating@prestigefence.com">estimating@prestigefence.com</a></span>
+    </div>
+    <div class="tb-right">
+      <span>SAM.gov Registered &amp; Bondable</span>
+      <span>UEI &amp; CAGE on File</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Prestige Fence home">
+      <img class="brand-logo" src="images/prestige-fence-logo.svg" alt="Prestige Fence" />
+    </a>
+    <nav class="main-nav">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#markets">Markets</a>
+      <a href="#approach">Approach</a>
+      <a href="#safety">Safety</a>
+      <a href="#about">About</a>
+    </nav>
+    <a href="#bid" class="nav-cta">Request a Bid</a>
+    <button class="menu-btn" id="menu-open" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="menu-close" id="menu-close" aria-label="Close">&times;</button>
+  <a href="#capabilities">Capabilities</a>
+  <a href="#markets">Markets</a>
+  <a href="#approach">Approach</a>
+  <a href="#safety">Safety</a>
+  <a href="#about">About</a>
+  <a href="#bid" class="mm-cta">Request a Bid</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left" style="padding-right: 16px;">
+        <span class="hero-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z"/></svg>
+          Commercial &amp; Government Specialists
+        </span>
+        <h1>
+          <span class="line">Perimeter Security &amp;</span>
+          <span class="line">Fencing Built to <span class="accent">Spec.</span></span>
+        </h1>
+        <p class="hero-sub">
+          Prestige Fence is a self-performing subcontractor delivering high-security perimeter systems, anti-ram barriers, and automated access control for federal, military, utility, and infrastructure projects nationwide.
+        </p>
+        <div class="hero-actions">
+          <a href="#bid" class="btn btn-gold">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            Request a Bid
+          </a>
+          <a href="#capabilities" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+            View Capabilities
+          </a>
+        </div>
+        <div class="hero-meta">
+          <span class="hm"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 16l-4-4 1.4-1.4L11 14.2l5.6-5.6L18 10l-7 7z"/></svg>Bonded to $10M</span>
+          <span class="hm"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 16l-4-4 1.4-1.4L11 14.2l5.6-5.6L18 10l-7 7z"/></svg>Davis-Bacon Compliant</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <img src="images/fence/chainlink.jpg" alt="Commercial chain-link perimeter fence" class="hero-img" />
+          <div class="hero-img-overlay"></div>
+          <div class="hero-img-badge">
+            <span class="hib-dot"></span>
+            <span>Self-Performing Subcontractor</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREDENTIAL STRIP ============ -->
+<div class="cred-strip">
+  <div class="wrap">
+    <span class="label">Qualified &amp; Compliant</span>
+    <span class="cred"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z"/></svg>Licensed &amp; Bonded</span>
+    <span class="cred"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/><path d="M11 7h2v6h-2zM11 15h2v2h-2z"/></svg>OSHA 30 Certified</span>
+    <span class="cred"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 16l-4-4 1.4-1.4L11 14.2l5.6-5.6L18 10l-7 7z"/></svg>SAM.gov Active</span>
+    <span class="cred"><svg viewBox="0 0 24 24"><path d="M20 6h-3V4a2 2 0 00-2-2H9a2 2 0 00-2 2v2H4a2 2 0 00-2 2v11a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2zM9 4h6v2H9V4z"/></svg>Certified Payroll</span>
+  </div>
+</div>
+
+<!-- ============ CAPABILITIES ============ -->
+<section class="block" id="capabilities">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow center">What We Self-Perform</div>
+      <h2 class="section-title">Full-Scope <span class="accent">Fencing &amp; Perimeter</span> Capabilities</h2>
+      <p class="section-desc">From the first survey stake to final punch list, our crews self-perform the work — no layered subs, no schedule risk.</p>
+    </div>
+
+    <div class="cap-grid">
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M3 4h2v16H3zM7 4h2v16H7zM11 4h2v16h-2zM15 4h2v16h-2zM19 4h2v16h-2z"/></svg></div>
+        <h3>High-Security Perimeter</h3>
+        <p>K-rated and ASTM F2656 anti-ram fence lines, 8'–12' security enclosures, and intrusion-resistant barriers for sensitive sites.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M2 12h20M5 8h14M5 16h14M9 4v16M15 4v16"/><path d="M2 11h20v2H2zM4 7h16v2H4zM4 15h16v2H4z"/></svg></div>
+        <h3>Chain Link &amp; Welded Wire</h3>
+        <p>Galvanized and vinyl-coated chain link, welded mesh, and PVC systems engineered for industrial and utility spec compliance.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M4 3h2v18H4zM18 3h2v18h-2zM8 3h1v18H8zM11 3h1v18h-1zM14 3h1v18h-1z"/><path d="M3 5h18v2H3z"/></svg></div>
+        <h3>Ornamental Steel &amp; Aluminum</h3>
+        <p>Architectural picket and palisade fencing with industrial coatings — secure perimeters that still meet design review.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M3 11h18v2H3zM5 7h14v2H5zM5 15h14v2H5z"/><circle cx="19" cy="12" r="2"/></svg></div>
+        <h3>Anti-Ram &amp; Crash Barriers</h3>
+        <p>Crash-rated gates, bollards, wedge barriers, and cable-reinforced fence for force-protection and DoD UFC standards.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V6a5 5 0 00-5-5zm3 8H9V6a3 3 0 016 0v3z"/></svg></div>
+        <h3>Automated Access Control</h3>
+        <p>Slide and swing operators, card/biometric readers, loop detection, and gate integration with site security networks.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M12 2l9 4.5v5C21 17 17 21.5 12 23 7 21.5 3 17 3 11.5v-5L12 2z"/></svg></div>
+        <h3>Detention &amp; Correctional</h3>
+        <p>Maximum-security enclosures, razor coil, anti-climb mesh, and sally ports built to correctional facility specifications.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M3 21v-2h2v-6H3l9-9 9 9h-2v6h2v2H3zm6-2h2v-4H9v4zm4 0h2v-6h-2v6z"/></svg></div>
+        <h3>Substation &amp; Critical Infrastructure</h3>
+        <p>NERC CIP-compliant utility enclosures, grounding-tied fence systems, and screening for energy and water assets.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M2 12l10-9 10 9h-3v8h-5v-5H10v5H5v-8H2z"/></svg></div>
+        <h3>Sports, Aviation &amp; Recreation</h3>
+        <p>Airport perimeter (FAA), ballfield backstops, tennis enclosures, and high-tension systems for large public facilities.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v3H4zM4 9h16v3H4zM4 14h16v3H4zM7 4v13M12 4v13M17 4v13"/></svg></div>
+        <h3>Temporary &amp; Construction</h3>
+        <p>Rapid-deploy panel fencing, jobsite security enclosures, and phased temporary perimeters for active project sites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARKETS ============ -->
+<section class="block alt" id="markets">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow center">Sectors We Serve</div>
+      <h2 class="section-title">Trusted on <span class="accent">Mission-Critical</span> Projects</h2>
+      <p class="section-desc">We partner with general contractors, agencies, and facility owners on projects where security, compliance, and schedule cannot fail.</p>
+    </div>
+
+    <div class="markets">
+      <div class="market" style="background-image:url('images/fence/chainlink.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z"/></svg></div>
+          <h3>Federal &amp; Military</h3>
+          <p>Bases, DoD force-protection, federal facilities</p>
+        </div>
+      </div>
+      <div class="market" style="background-image:url('images/fence/aluminum.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v2h20V7L12 2zM4 11v7H2v2h20v-2h-2v-7h-2v7h-3v-7h-2v7h-2v-7H9v7H6v-7H4z"/></svg></div>
+          <h3>Government &amp; Municipal</h3>
+          <p>City, county, state agency facilities</p>
+        </div>
+      </div>
+      <div class="market" style="background-image:url('images/fence/wood.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M3 21v-2h2v-6H3l9-9 9 9h-2v6h2v2H3z"/></svg></div>
+          <h3>Utilities &amp; Energy</h3>
+          <p>Substations, solar, water treatment</p>
+        </div>
+      </div>
+      <div class="market" style="background-image:url('images/fence/vinyl.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M22 16l-10-4L2 16l4 2v3l6 3 6-3v-3l2-1zm-10-9L2 11l10 4 10-4-10-4z"/></svg></div>
+          <h3>Aviation &amp; Transportation</h3>
+          <p>Airports (FAA), DOT, rail, ports</p>
+        </div>
+      </div>
+      <div class="market" style="background-image:url('images/services/fence.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
+          <h3>Industrial &amp; Commercial</h3>
+          <p>Distribution, manufacturing, logistics</p>
+        </div>
+      </div>
+      <div class="market" style="background-image:url('images/fence/chainlink.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.9V17h2V9L12 3z"/><path d="M5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg></div>
+          <h3>Education</h3>
+          <p>K-12 campuses, universities, athletics</p>
+        </div>
+      </div>
+      <div class="market" style="background-image:url('images/fence/aluminum.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 2l9 4.5v5C21 17 17 21.5 12 23 7 21.5 3 17 3 11.5v-5L12 2z"/></svg></div>
+          <h3>Correctional &amp; Detention</h3>
+          <p>Secure facilities, high-security perimeters</p>
+        </div>
+      </div>
+      <div class="market" style="background-image:url('images/services/fence.jpg')">
+        <div class="m-body">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v4H4zM4 10h16v4H4zM4 16h16v4H4z"/></svg></div>
+          <h3>General Contractors</h3>
+          <p>Reliable fence package partner on bid day</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ WHY / DIFFERENTIATORS ============ -->
+<section class="block alt" id="approach">
+  <div class="wrap">
+    <div class="why-wrap">
+      <div>
+        <div class="eyebrow">Why GCs &amp; Agencies Choose Us</div>
+        <h2 class="section-title">A Subcontractor That <span class="accent">De-Risks</span> Your Schedule</h2>
+        <p class="section-desc">When the fence package is on the critical path, you need a partner who shows up bonded, staffed, and ready to build.</p>
+        <div class="why-side" style="margin-top:30px">
+          <div class="quote-mark">&ldquo;</div>
+          <blockquote>Prestige came in bonded, mobilized in two weeks, and closed out 9,000 linear feet ahead of our milestone. They're on our shortlist for every secure-site bid.</blockquote>
+          <div class="qa">
+            <div class="av">RM</div>
+            <div>
+              <div class="qn">Robert Mason</div>
+              <div class="qt">Senior PM · National General Contractor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div><h3>Self-Performing Crews</h3><p>We don't broker the work. Our own trained crews execute the scope, protecting quality, safety, and your schedule.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div><h3>$48M Bonding Capacity</h3><p>Single-project bonds to $10M and aggregate to $48M, backed by an A-rated surety — bid the big jobs with confidence.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div><h3>Prevailing Wage &amp; Certified Payroll</h3><p>Davis-Bacon experienced with full certified payroll, compliance reporting, and DBE/SDVOSB teaming when required.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">05</div>
+          <div><h3>Preconstruction &amp; Estimating</h3><p>Detailed takeoffs, value engineering, and submittal-ready packages that keep your procurement moving.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="block" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow center">How We Deliver</div>
+      <h2 class="section-title">From Bid Day to <span class="accent">Closeout</span></h2>
+      <p class="section-desc">A disciplined, documented process that keeps owners and GCs informed at every milestone.</p>
+    </div>
+    <div class="process">
+      <div class="pstep">
+        <div class="pn">01</div>
+        <h3>Estimating &amp; Preconstruction</h3>
+        <p>Plan and spec review, quantity takeoffs, value engineering, and a complete, competitive bid package.</p>
+      </div>
+      <div class="pstep">
+        <div class="pn">02</div>
+        <h3>Submittals &amp; Mobilization</h3>
+        <p>Shop drawings, product data, certified materials, safety plans, and scheduled mobilization.</p>
+      </div>
+      <div class="pstep">
+        <div class="pn">03</div>
+        <h3>Self-Perform Installation</h3>
+        <p>Trained crews, daily reports, QA/QC inspections, and proactive coordination with the GC schedule.</p>
+      </div>
+      <div class="pstep">
+        <div class="pn">04</div>
+        <h3>Inspection &amp; Closeout</h3>
+        <p>Final punch, as-builts, O&amp;M manuals, warranties, and certified payroll documentation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAFETY / COMPLIANCE ============ -->
+<section class="block alt" id="safety">
+  <div class="wrap">
+    <div class="safety-wrap">
+      <div>
+        <div class="eyebrow">Safety &amp; Compliance</div>
+        <h2 class="section-title">Prequalified, <span class="accent">Compliant</span>, and Audit-Ready</h2>
+        <p class="section-desc">Safety isn't a slogan — it's how we keep crews protected and projects moving. We meet the documentation requirements of the most demanding owners.</p>
+        <ul class="compliance-list">
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>OSHA 30 Supervision</li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>Davis-Bacon / Prevailing Wage</li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>Certified Payroll Reporting</li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>Site-Specific Safety Plans</li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>SAM.gov / UEI / CAGE on File</li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>$5M General Liability</li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>EEO / Drug-Free Workplace</li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>DBE / SDVOSB Teaming</li>
+        </ul>
+      </div>
+      <div class="safety-stats">
+        <div class="safety-stat"><div class="ss-v">0.71</div><div class="ss-l">Experience Mod Rate</div></div>
+        <div class="safety-stat"><div class="ss-v">1.2M+</div><div class="ss-l">Safe Man-Hours</div></div>
+        <div class="safety-stat"><div class="ss-v">0</div><div class="ss-l">Lost-Time Incidents (24 mo.)</div></div>
+        <div class="safety-stat"><div class="ss-v">100%</div><div class="ss-l">Prequal Pass Rate</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT (short) + BID ============ -->
+<section class="block bid" id="bid">
+  <div class="bid-bg"></div>
+  <div class="wrap">
+    <div class="bid-grid">
+      <div class="bid-info" id="about">
+        <div class="eyebrow">Invite Us to Bid</div>
+        <h2>Add Prestige Fence to Your <span class="accent">Bid List</span></h2>
+        <p>Send us your plans, specs, and bid date. Our estimating team will return a complete, competitive fence package — typically within 48 hours of plan review.</p>
+        <ul class="bid-points">
+          <li>
+            <span class="bp-ico"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg></span>
+            <span><strong>Fast, complete bids</strong><span>Detailed takeoffs and submittal-ready scope.</span></span>
+          </li>
+          <li>
+            <span class="bp-ico"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg></span>
+            <span><strong>Bonded &amp; prequalified</strong><span>Bonding, insurance, and compliance docs on request.</span></span>
+          </li>
+          <li>
+            <span class="bp-ico"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg></span>
+            <span><strong>One reliable partner</strong><span>Self-performed from mobilization to closeout.</span></span>
+          </li>
+        </ul>
+        <div class="bid-contact">
+          <a href="tel:+18555550199"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>(855) 555-0199</a>
+          <a href="mailto:estimating@prestigefence.com"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5z"/></svg>estimating@prestigefence.com</a>
+        </div>
+      </div>
+
+      <div class="bid-form">
+        <form id="bid-request" novalidate>
+          <h3>Request a Bid</h3>
+          <p class="bf-sub">Tell us about the project. Required fields marked.</p>
+          <div class="form-row">
+            <div class="field"><label>Company *</label><input type="text" id="bf-company" placeholder="GC / Owner / Agency" required /></div>
+            <div class="field"><label>Contact Name *</label><input type="text" id="bf-name" placeholder="Your name" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Email *</label><input type="email" id="bf-email" placeholder="name@company.com" required /></div>
+            <div class="field"><label>Phone *</label><input type="tel" id="bf-phone" placeholder="(555) 555-5555" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Project Name</label><input type="text" id="bf-project" placeholder="Project / solicitation" /></div>
+            <div class="field"><label>Project Location</label><input type="text" id="bf-location" placeholder="City, State" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Project Type</label>
+              <select id="bf-type">
+                <option value="">Select…</option>
+                <option>Federal / Military</option>
+                <option>Government / Municipal</option>
+                <option>Utility / Energy</option>
+                <option>Aviation / Transportation</option>
+                <option>Industrial / Commercial</option>
+                <option>Education</option>
+                <option>Correctional / Detention</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field"><label>Bid / Due Date</label><input type="text" id="bf-biddate" placeholder="mm/dd/yyyy" /></div>
+          </div>
+          <div class="field full" style="margin-bottom:14px">
+            <label>Scope / Notes</label>
+            <textarea id="bf-notes" placeholder="Approx. linear footage, fence type, special requirements, link to plans…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold bf-submit">
+            <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+            Submit Bid Request
+          </button>
+          <p class="bf-note">We respond to qualified bid invitations within one business day. Plans &amp; specs can be emailed to estimating@prestigefence.com.</p>
+        </form>
+
+        <div class="bf-success" id="bf-success">
+          <svg class="check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="none" stroke="#f5b800" stroke-width="3"/><path d="M20 33l8 8 16-18" fill="none" stroke="#f5b800" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Bid Request Received</h3>
+          <p>Thank you — our estimating team will follow up shortly. For plans or specs, email estimating@prestigefence.com.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img class="brand-logo" src="images/prestige-fence-logo.svg" alt="Prestige Fence" />
+        <p>Self-performing commercial &amp; government fencing and perimeter security contractor. Bonded, insured, and prequalified for mission-critical work.</p>
+        <div class="naics">
+          <span>NAICS 238990</span>
+          <span>NAICS 561621</span>
+          <span>NAICS 332323</span>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Capabilities</h4>
+        <a href="#capabilities">High-Security Perimeter</a>
+        <a href="#capabilities">Anti-Ram Barriers</a>
+        <a href="#capabilities">Access Control &amp; Gates</a>
+        <a href="#capabilities">Chain Link &amp; Welded Wire</a>
+        <a href="#capabilities">Ornamental Steel</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#markets">Markets Served</a>
+        <a href="#approach">Our Approach</a>
+        <a href="#safety">Safety &amp; Compliance</a>
+        <a href="#bid">Request a Bid</a>
+      </div>
+      <div class="foot-col">
+        <h4>Estimating</h4>
+        <p><a href="tel:+18555550199">(855) 555-0199</a></p>
+        <p><a href="mailto:estimating@prestigefence.com">estimating@prestigefence.com</a></p>
+        <p style="margin-top:12px;color:var(--muted-2)">Mon–Fri · 7:00a – 5:00p<br/>Bid invitations welcome 24/7</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span id="year"></span> Prestige Fence. All rights reserved. Licensed · Bonded · Insured.</span>
+      <span>Commercial &amp; Government Perimeter Security Contractors</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  var mm = document.getElementById('mobile-menu');
+  document.getElementById('menu-open').addEventListener('click', function(){ mm.classList.add('open'); });
+  document.getElementById('menu-close').addEventListener('click', function(){ mm.classList.remove('open'); });
+  Array.prototype.forEach.call(mm.querySelectorAll('a'), function(a){
+    a.addEventListener('click', function(){ mm.classList.remove('open'); });
+  });
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Bid form (front-end demo handler)
+  document.getElementById('bid-request').addEventListener('submit', function(e){
+    e.preventDefault();
+    var required = ['bf-company','bf-name','bf-email','bf-phone'];
+    var ok = true;
+    required.forEach(function(id){
+      var el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = '#ff5252'; ok = false; }
+      else { el.style.borderColor = ''; }
+    });
+    if (!ok) return;
+    this.style.display = 'none';
+    document.getElementById('bf-success').classList.add('show');
+  });
+</script>
+</body>
+</html>
